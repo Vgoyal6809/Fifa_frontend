@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './modules/Home/index'
 
 function App() {
   return (
     <div className="App">
-      <h1>Testing Github Connection</h1>
+      <Home/>
     </div>
   );
 }
