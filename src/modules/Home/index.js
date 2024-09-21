@@ -1,67 +1,52 @@
+import React from 'react';
+import { ButtonGroup, CloudWindow, Container, Description, FloatingAvatar, HeroSection, Logo, Navbar, NavItem, NavItems, PrimaryButton, Title, WindowPane } from './styled';
+import Charts from './media/Chart.svg'
+import Drone from './media/Drone.svg'
+import Investment from './media/Investment.svg'
+import Meeting from './media/Meeting.svg'
+import Soccer from './media/Football_player.svg'
 
-import React, { useEffect, useState } from 'react';
-import { CentreBachApi, GoalKeeperApi, LeftBackApi, LeftForwardApi, LeftMidApi, RightBackApi, RightForwardApi, RightMidApi } from '../../api';
 
-const Home = () => {
+function App() {
+  return (
+    <Container>
+      <Navbar>
+        <Logo>ProFormance</Logo>
+        <NavItems>
+          <NavItem>About</NavItem>
+          <NavItem>Technology</NavItem>
+          <NavItem>News & Insights</NavItem>
+          <NavItem>Contact us</NavItem>
+        </NavItems>
+      </Navbar>
+      <FloatingAvatar src={Charts} top="20%" left="5%" />
+      <FloatingAvatar src={Drone} top="21%" left="30%" Noborder={true} />
+      <FloatingAvatar src={Investment} bottom="35%" left="10%" />
+      <FloatingAvatar src={Meeting} bottom="15%" right="7%" />
+      <FloatingAvatar src={Soccer} top="23%" left="80%" />
 
-    const [topPlayersData, setTopPlayersData] = useState('');
-    const [isFetching, setIsFetching] = useState(true);
-    const [isFailed, setIsFailed] = useState(false);
-    const ButtonDetails = [
-        {
-            label: 'Left Forward',
-            action: () => LeftForwardApi({ setIsFetching, setTopPlayersData, setIsFailed }),
-        },
-        {
-            label: 'Left Mid',
-            action: () => LeftMidApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Left Back',
-            action: () => LeftBackApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Right Back',
-            action: () => RightBackApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Right Mid',
-            action: () => RightMidApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Right Forward',
-            action: () => RightForwardApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Centre Back',
-            action: () => CentreBachApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-        {
-            label: 'Goal Keeper !!',
-            // action: () => GoalKeeperApi({ setIsFetching, setTopPlayersData, setIsFailed })
-        },
-    ]
+      <HeroSection>
+        <Title>Scout. Optimize. Forecast.</Title>
+        <Description>
+          Enhance player performance and strategic decision-making with our integrated sports analytics platform.
+        </Description>
+        <ButtonGroup>
+          <PrimaryButton>Let's Start</PrimaryButton>
+        </ButtonGroup>
+      </HeroSection>
 
-    return (
-        <div>
-            <h1>Fetch Data from Jupyter Notebook</h1>
-            {ButtonDetails?.map((data, id) => {
-                return (
-                    <button key={id} onClick={data?.action}>{data?.label}</button>
-                )
-            })}
+      <CloudWindow>
+        <WindowPane />
+        <WindowPane />
+        <WindowPane />
+        <WindowPane />
+        <WindowPane />
+        <WindowPane />
+      </CloudWindow>
+    </Container>
+  );
+}
 
-            {topPlayersData && topPlayersData?.data?.map((data, id) => {
-                return (
-                    <>
-                        <h3 key={id}>{data?.ID} -- {data?.Name}</h3>
-                        <p>{data?.Actual_Potential}</p>
-                        <p>{data?.Predicted_Potential}</p>
-                    </>
-                )
-            })}
-        </div>
-    );
-};
 
-export default Home;
+
+export default App;
