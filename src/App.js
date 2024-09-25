@@ -1,12 +1,37 @@
+import { useEffect, useState } from 'react';
 import './App.css';
-import Home from './modules/Home/index'
-import Prediction from './modules/Prediction';
+import PlayerDetails from './modules/PlayerDetails';
+import Navbar from './Components/Navbar';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './modules/Home';
 
 function App() {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (window.innerWidth <= 500) {
+      setIsMobile(true);
+    }
+    else {
+      setIsMobile(false);
+    }
+
+
+  }, [window.innerWidth])
+
   return (
     <div className="App">
-      <Home/>
-      <Prediction/>
+      <BrowserRouter>
+        <Navbar isMobile={isMobile} />
+        <Routes>
+          <Route path='/' element={<Home isMobile={isMobile} />} />
+          <Route path='/details' element={<PlayerDetails isMobile={isMobile} />} />
+
+        </Routes>
+      </BrowserRouter>
+      {/* <Home isMobile={isMobile}/>
+      <Prediction isMobile={isMobile}/> */}
     </div>
   );
 }
