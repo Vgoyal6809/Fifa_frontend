@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { CentreBachApi, GoalKeeperApi, LeftBackApi, LeftForwardApi, LeftMidApi, RightBackApi, RightForwardApi, RightMidApi } from '../../api';
+import { CentreBachApi, GoalKeeperApi, LeftBackApi, LeftForwardApi, LeftMidApi, RightBackApi, RightForwardApi, RightMidApi, StrikerApi } from '../../api';
 import { Avatar, AvatarContainer, Details, FieldOuterContainer, GoalBox, InstructionBox, InstructionPlayer, Player, PlayerDetails, PositionHeader, SemiCircle, SoccerField } from './styled';
 import Playerimg from './Player.png'
+import { useNavigate } from 'react-router-dom';
 
 
 
 // App Component
-const App = () => {
+const Prediction = ({ isMobile }) => {
+  const Navigate = useNavigate();
   const [topPlayersData, setTopPlayersData] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
@@ -99,8 +101,7 @@ const App = () => {
         break;
 
       case 9:
-        console.log(`Player ${id} is a Striker`);
-        // Add logic for Striker
+        StrikerApi({ setIsFetching, setTopPlayersData, setIsFailed })
         break;
 
       case 10:
@@ -129,16 +130,20 @@ const App = () => {
 
   return (
     <FieldOuterContainer>
-      <h1>Forecasting the Best Players for Every Position</h1>
+      <h1 className='predictionHeader'>Forecasting the Best Players for Every Position</h1>
 
-      <SoccerField tilt={tilt}>
+      <SoccerField tilt={tilt} isMobile={isMobile}>
         <GoalBox isPenalty={true} isLeft={true} />
-        <GoalBox isPenalty={true} isLeft={false} />
         <GoalBox isPenalty={false} isLeft={true} />
-        <GoalBox isPenalty={false} isLeft={false} />
-
         <SemiCircle isLeft={true} />
-        <SemiCircle isLeft={false} />
+
+        {!isMobile && <>
+          <GoalBox isPenalty={true} isLeft={false} />
+          <GoalBox isPenalty={false} isLeft={false} />
+          <SemiCircle isLeft={false} />
+        </>
+        }
+
 
         {isFetching ? <>
           {Loaderplayers.map((player, index) => (
@@ -147,10 +152,9 @@ const App = () => {
         </> :
           <>
             {players.map(player => (
-              <Player key={player.id} style={{ left: player.left, top: player.top }} onClick={player?.action} tutorial={player.id == 1 && tutorial} />
+              <Player key={player.id} dim={player} onClick={player?.action} tutorial={player.id == 1 && tutorial} />
             ))}
           </>}
-
 
         {/* Display avatars on both sides */}
         {showAvatars && (
@@ -177,7 +181,7 @@ const App = () => {
         }
 
         {tilt && selectedPlayer && (
-          <PlayerDetails>
+          <PlayerDetails onClick={() => Navigate('/details')}>
             <img src={Playerimg} />
             <Details>
               <h3>{selectedPlayer?.Name}</h3>
@@ -213,4 +217,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Prediction;

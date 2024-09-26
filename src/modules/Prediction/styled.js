@@ -4,23 +4,40 @@ import styled, { css, keyframes } from "styled-components";
 export const FieldOuterContainer = styled.div`
   padding-top: 50px;
   height:90vh;
-  h1 {
+  .predictionHeader {
     text-align: center;
     padding: 0;
     margin: 0;
     margin-top:10px;
-    font-size:36px;
+    font-size:2rem;
     font-family: 'Arial, sans-serif';
   }
-  
 `;
 
 export const SoccerFieldAnimation = keyframes`
   0% { 
-  transform: perspective(1000px) rotateX(45deg);
-  }
+    transform: perspective(1000px) rotateX(45deg);
+    }
   100% { 
     transform: rotateX(0deg);
+  }
+`;
+
+export const SoccerFieldAnimationTab = keyframes`
+  0% { 
+    transform: perspective(1000px) rotateX(45deg) scale(0.7);
+    }
+  100% { 
+    transform: rotateX(0deg) scale(0.7);
+  }
+`;
+
+export const SoccerFieldAnimationMobile = keyframes`
+  0% { 
+    transform: perspective(1000px) rotateZ(-90deg) rotateX(45deg) scale(0.7);
+    }
+  100% { 
+    transform: rotateX(0deg) rotateZ(-90deg) scale(0.7);
   }
 `;
 
@@ -31,7 +48,7 @@ export const SoccerField = styled.div`
   background-color: green;
   position: relative;
   margin: 0px auto;
-  margin-top: 40px;
+  margin-top:10px;
   border: 5px solid white;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
@@ -45,7 +62,8 @@ export const SoccerField = styled.div`
   transform: perspective(1000px) rotateX(45deg);
   transform-origin: center;
 
-  &::before {
+
+    &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -67,9 +85,46 @@ export const SoccerField = styled.div`
     transform: translate(-50%, -50%);
   }
 
+
   ${props => props.tilt && css`
      animation: ${SoccerFieldAnimation} 2s ease-in-out forwards;
   `}
+  
+  @media only screen and (max-width: 900px) {
+  
+    transform: perspective(1000px) rotateX(45deg) scale(0.7);
+    transform-origin: center;
+    ${props => props.tilt && css`
+      animation: ${SoccerFieldAnimationTab} 2s ease-in-out forwards;
+   `}
+  }
+
+@media only screen and (max-width: 500px) {
+  width:300px;
+  transform:rotateZ(-90deg) scale(0.7);
+  margin-top: 0px;
+
+  &::before {
+    left: 100%;
+  }
+
+  &::after {
+  width: 75px;
+  height: 150px;
+  border: 2px solid white;
+  border-bottom-right-radius: 700px;
+  border-top-right-radius: 700px;
+  left: 75%;
+  top:37%;
+  transform:rotate(180deg);
+  }
+
+  ${props => props.tilt && css`
+    animation: none;
+ `}
+}
+
+  
 `;
 
 export const GoalBox = styled.div`
@@ -142,6 +197,13 @@ export const Player = styled.div`
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 
+  ${({ dim }) => `
+    top: ${dim?.top};
+    left: ${dim?.left};
+    bottom: ${dim?.bottom};
+    right: ${dim?.right};
+  `}
+
   ${props => props.loader && css`
       background-color: red;
     `}
@@ -149,6 +211,15 @@ export const Player = styled.div`
   ${props => props.tutorial && css`
     animation: ${jump} 1.5s infinite, ${glow} 1.5s infinite;   `
   }  
+
+  @media only screen and (max-width: 500px) {
+    ${({ dim }) => `
+    top: ${dim?.top};
+    left: calc(${dim?.left} * 2.15);
+    bottom: ${dim?.bottom};
+    right: ${dim?.right};
+  `}
+  }
 `;
 
 export const Avatar = styled.img`
@@ -160,6 +231,10 @@ export const Avatar = styled.img`
   margin: 10px;
   cursor: pointer;
   marginLeft: -100px;
+
+  @media only screen and (max-width: 500px) {
+transform: rotate(90deg);
+}
 `;
 
 // Player Details Container (for display on the right side)
@@ -178,6 +253,9 @@ export const PlayerDetails = styled.div`
   img{
   width:180px;
   }
+  @media only screen and (max-width: 500px) {
+    display:none;
+  };
 `;
 
 export const InstructionBox = styled.div`
@@ -189,6 +267,9 @@ export const InstructionBox = styled.div`
   color:yellow;
   font-size:24px;
   line-height:2;
+@media only screen and (max-width: 500px) {
+display:none;
+}
 `;
 
 export const InstructionPlayer = styled.div`
@@ -259,7 +340,12 @@ export const PositionHeader = styled.div `
    font-weight:600;
    font-size:22px;
    }
-
+  @media only screen and (max-width: 500px) {
+    transform:rotateZ(90deg);
+    margin-top:70px;
+    margin-right:-50px;
+    background:red;
+  };
 `;
 
 export const AvatarContainer = styled.div`
@@ -270,15 +356,16 @@ export const AvatarContainer = styled.div`
   width:100%;
   height:100%;
   z-index:-1;
-
+ 
 .left,.right{
 
   display: flex;
   flex-direction:column;
   justify-content:space-around;
   overflow:hidden;
-  
+
 }
+
 
 ${props => props.tilt ? css`
   .left{
@@ -287,12 +374,17 @@ ${props => props.tilt ? css`
   .right{
    animation: ${moveLeftToRight} 1.5s linear forwards;
   }
-  `
-:
-css`
-opacity:0;
-`
-}
+  `:css`
+opacity:0; 
+`}
+
+@media only screen and (max-width: 500px) {
+  .right{
+    display:none;
+    }
+  };
+
+
 `;
 
 export const moveLeftToRight = keyframes`

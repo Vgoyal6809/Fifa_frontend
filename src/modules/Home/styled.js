@@ -4,35 +4,22 @@ import styled, { css } from "styled-components";
 export const Container = styled.div`
   text-align: center;
   font-family: 'Arial, sans-serif';
-  height:100vh;
+  height:80vh;
 `;
 
-// Navbar styling
-export const Navbar = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 50px;
-  align-items: center;
-`;
 
-export const Logo = styled.div`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-export const NavItems = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const NavItem = styled.div`
-  margin-right: 20px;
-  cursor: pointer;
-`;
 
 // Hero Section styling
 export const HeroSection = styled.div`
+  position:relative;
   margin: 100px 0 0 0;
+  @media only screen and (max-width: 900px) {
+  margin: 70px 0 0 0;
+}
+  @media only screen and (max-width: 500px) {
+  margin: 40px 0 0 0;
+
+}
 `;
 
 export const Title = styled.h1`
@@ -111,6 +98,20 @@ export const WindowPane = styled.div`
        transform: scaleX(-1);
 
   }    
+
+  @media only screen and (max-width: 500px) {
+    
+  &:nth-child(1){
+    clip-path: polygon(0% 0, 0% 100%, 100% 100%, 100% 13%);
+      background-position: 20% 10%;
+  }
+  &:nth-child(2){
+    clip-path: polygon(0% 13%, 0% 100%, 100% 100%, 100% 0%);
+      background-position: 70% 10%;
+      //  transform: scaleX(-1);
+
+  } 
+}
 `;
 
 
@@ -125,20 +126,20 @@ export const FloatingAvatar = styled.img`
   animation: floating 6s ease-in-out infinite;
   overflow: hidden; /* Ensure reflection is clipped */
 
-${props=>props.Noborder && css
+  ${props => props.Noborder && css
     `
     border:none;
     animation-delay:2s;
     width: 90px;
     height: 90px;
     `
-} ;
+  } ;
 
-  ${({ top, left, bottom, right }) => `
-    top: ${top};
-    left: ${left};
-    bottom: ${bottom};
-    right: ${right};
+  ${({ position }) => `
+    top: ${position?.top};
+    left: ${position?.left};
+    bottom: ${position?.bottom};
+    right: ${position?.right};
   `}
 
 
@@ -151,5 +152,7 @@ ${props=>props.Noborder && css
     }
   }
 
-  
+  @media only screen and (max-width: 800px) {
+  display:none;
+}
 `;
