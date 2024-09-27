@@ -6,7 +6,7 @@ import Investment from './media/Investment.svg';
 import Meeting from './media/Meeting.svg';
 import Soccer from './media/Football_player.svg';
 
-function Front({ isMobile, scrollToPrediction }) {  
+function Front({ isMobile, scrollToPrediction }) {  // Accept scrollToPrediction as a prop
 
   const Bubblecontent = [
     {
@@ -60,7 +60,7 @@ function Front({ isMobile, scrollToPrediction }) {
           Enhance player performance and strategic decision-making with our integrated sports analytics platform.
         </Description>
         <ButtonGroup>
-          <PrimaryButton onClick={scrollToPrediction}>Let's Start</PrimaryButton> 
+          <PrimaryButton onClick={scrollToPrediction}>Let's Start</PrimaryButton> {/* Call scrollToPrediction on click */}
         </ButtonGroup>
       </HeroSection>
 
