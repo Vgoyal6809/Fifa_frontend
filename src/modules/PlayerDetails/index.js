@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import StatCategory from "./StatCategory";
+import Playerimg from '../Prediction/Player.png';
 
 // Main Container for the whole layout
 const Container = styled.div`
@@ -34,6 +35,7 @@ const Header = styled.div`
 const PlayerImage = styled.img`
   border-radius: 50%;
   margin-right: 20px;
+  width:100px;
 `;
 
 // Player Name and Position
@@ -81,6 +83,15 @@ const StatNumber = styled.h2`
 const StatLabel = styled.p`
   margin: 0;
   font-size: 1em;
+`;
+
+const StatCategoryContainer = styled.div`
+  display: flex;
+  // grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  color: #333;
 `;
 
 // Example Component Layout
@@ -131,7 +142,7 @@ const PlayerDetails = () => {
             <div>
                 {/* Header */}
                 <Header>
-                    <PlayerImage src="alisson.png" alt="Alisson Becker" />
+                    <PlayerImage src={Playerimg} alt="Alisson Becker" />
                     <PlayerDetail>
                         <h1>Alisson Becker</h1>
                         <p>Goalkeeper</p>
@@ -159,12 +170,12 @@ const PlayerDetails = () => {
                 </StatsGrid>
 
                 {/* Add other sections (Goalkeeping, Defence, etc.) in a similar style */}
-                <>
+                <StatCategoryContainer>
                     <StatCategory title="Goalkeeping" stats={goalkeepingStats} />
                     <StatCategory title="Defence" stats={defenceStats} />
                     <StatCategory title="Discipline" stats={disciplineStats} />
                     <StatCategory title="Team Play" stats={teamPlayStats} />
-                </>
+                </StatCategoryContainer>
             </div>
         </Container>
     );
