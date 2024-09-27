@@ -1,6 +1,5 @@
 import styled, { css } from "styled-components";
 
-// Container for the entire layout
 export const Container = styled.div`
   text-align: center;
   font-family: 'Arial, sans-serif';
@@ -8,8 +7,6 @@ export const Container = styled.div`
 `;
 
 
-
-// Hero Section styling
 export const HeroSection = styled.div`
   position:relative;
   margin: 100px 0 0 0;
@@ -48,14 +45,9 @@ export const PrimaryButton = styled.button`
 `;
 
 
-// Cloud window pane styling
-
-
-
 export const CloudWindow = styled.div`
   display: flex;
   justify-content: center;
-//   margin-top: 50px;
 `;
 
 
@@ -114,8 +106,6 @@ export const WindowPane = styled.div`
 }
 `;
 
-
-// import styled from 'styled-components';
 
 export const FloatingAvatar = styled.img`
   position: absolute;
