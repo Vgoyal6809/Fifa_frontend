@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 // Navbar styling
@@ -8,6 +9,8 @@ const NavbarContainer = styled.nav`
   padding: 20px 50px;
   align-items: center;
 
+  box-shadow: ${props => props.shadow && '2px 2px 10px  grey;'};
+
   @media only screen and (max-width: 900px) {
     padding:20px 10px;
   }
@@ -16,6 +19,7 @@ const NavbarContainer = styled.nav`
 const Logo = styled.div`
   font-size: 24px;
   font-weight: bold;
+  cursor:default;
 `;
 
 const NavItems = styled.div`
@@ -29,16 +33,28 @@ const NavItem = styled.div`
 `;
 
 export default function Navbar({ isMobile }) {
+  const Navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+  const [shadow, setShadow] = useState(true);
+  
+  
+  useEffect(() => {
+    if (pathname === '/')
+      setShadow(false)
+    else
+      setShadow(true)
+  }, [pathname])
+
   return (
-    <NavbarContainer>
-      <Logo>ProFormance</Logo>
+    <NavbarContainer shadow={shadow}>
+      <Logo onClick={() => Navigate('/')}>ProFormance</Logo>
       {isMobile ?
         <h4>Menu</h4> :
         <NavItems>
-          <NavItem>About</NavItem>
-          <NavItem>Technology</NavItem>
-          <NavItem>News & Insights</NavItem>
-          <NavItem>Contact us</NavItem>
+          <NavItem onClick={() => Navigate('/about')}>About</NavItem>
+          <NavItem onClick={() => Navigate('/technology')}>Technology</NavItem>
+          <NavItem onClick={() => Navigate('/contact')}>Contact us</NavItem>
         </NavItems>}
     </NavbarContainer>
   )
