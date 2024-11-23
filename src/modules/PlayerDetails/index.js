@@ -3,6 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import StatCategory from "./StatCategory";
 import Playerimg from '../Prediction/Player.png';
+import { useLocation } from "react-router-dom";
 
 // Main Container for the whole layout
 const Container = styled.div`
@@ -96,6 +97,8 @@ const StatCategoryContainer = styled.div`
 
 // Example Component Layout
 const PlayerDetails = () => {
+  const location = useLocation();
+  const {data , position} = location.state;
 
     const goalkeepingStats = [
         { label: 'Saves', value: '494' },
@@ -144,8 +147,8 @@ const PlayerDetails = () => {
                 <Header>
                     <PlayerImage src={Playerimg} alt="Alisson Becker" />
                     <PlayerDetail>
-                        <h1>Alisson Becker</h1>
-                        <p>Goalkeeper</p>
+                        <h1>{data?.Name || 'Alisson Becker'}</h1>
+                        <p>{position}</p>
                     </PlayerDetail>
                 </Header>
 

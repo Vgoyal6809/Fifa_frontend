@@ -1,4 +1,5 @@
-const BASE_URI = "https://fifa-1rg5.onrender.com";
+// const BASE_URI = "https://fifa-1rg5.onrender.com";
+const BASE_URI = "http://127.0.0.1:5000";
 
 export async function RightForwardApi({ setIsFetching, setTopPlayersData, setIsFailed }) {
     setIsFetching(true)
@@ -118,7 +119,7 @@ export async function GoalKeeperApi({ setIsFetching, setTopPlayersData, setIsFai
 export async function StrikerApi({ setIsFetching, setTopPlayersData, setIsFailed }) {
     setIsFetching(true)
     try {
-        await fetch(`${BASE_URI}/Stricker`)
+        await fetch(`${BASE_URI}/Striker`)
             .then(res => res.json())
             .then(result => setTopPlayersData(result))
             .catch(err => setIsFailed(true));
