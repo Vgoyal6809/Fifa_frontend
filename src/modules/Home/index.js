@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import Front from './Front';
 import Prediction from '../Prediction';
 import Optimize from '../Optimize';
-import FootballAnalysis from '../Prediction/FootballAnalysis';
 
 export default function Home({ isMobile }) {
     const predictionRef = useRef(null);  
