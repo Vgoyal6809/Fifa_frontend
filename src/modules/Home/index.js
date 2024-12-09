@@ -7,15 +7,32 @@ export default function Home({ isMobile }) {
     const predictionRef = useRef(null);  
 
     const scrollToPrediction = () => {
-        predictionRef.current.scrollIntoView({ behavior: 'smooth' }); 
+        const targetPosition = predictionRef.current.offsetTop;  // Get the target's position from the top
+        const startPosition = window.pageYOffset;  // Current scroll position
+        const distance = targetPosition - startPosition;
+        const duration = 2000;  // Time for the scroll (in milliseconds)
+    
+        let startTime = null;
+    
+        const animateScroll = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            window.scrollTo(0, startPosition + distance * progress);
+    
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            }
+        };
+    
+        requestAnimationFrame(animateScroll);
     };
 
     return (
         <>
             <Front isMobile={isMobile} scrollToPrediction={scrollToPrediction} />
             <div ref={predictionRef}> 
-                {/* <Prediction isMobile={isMobile} /> */}
                 <Optimize />
+                <Prediction isMobile={isMobile} />
             </div>
         </>
     );

@@ -7,6 +7,13 @@ export const FieldOuterContainer = styled.div`
   height:93vh;
   overflow:hidden;
   z-index:0;
+
+  ${props => props.isAnalyzing ? css`
+  background-color:#19191f;
+   box-shadow: 0 40px 80px #19191f;
+   `:css`
+     background-color:#F4F5FA;
+   `};
 `;
 
 export const Outterfence = styled.div`
@@ -358,8 +365,8 @@ export const SideLightBeam = styled.div`
   clip-path: polygon(0 10%, 100% 1%, 100% 100%, 0 100%); /* Flask-like clip path */
   opacity:0;
   ${props => !props.isLeft && css`
-      transform:rotateY(60deg) rotateX(-40deg);
-      left:-170%;
+      transform:rotateY(70deg) rotateX(-37deg);
+      left:-190%;
 
     `};
 
@@ -412,4 +419,51 @@ top:12%;
       top: 100%;
     }
   }
+
+   ${props => props.isAnalyzing && css`
+        animation: ${fadeIn} 0s ease forwards;
+        animation-delay: 1s; /* 1-second delay */
+    `};
+`;
+
+const Playerdesign =css`
+width: 20px;
+  height: 20px;
+  background-color: blue;
+  border-radius: 50%;
+`
+
+export const Player = styled.div`
+  ${Playerdesign}
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+
+  ${({ dim }) => `
+    top: ${dim?.top};
+    left: ${dim?.left};
+    bottom: ${dim?.bottom};
+    right: ${dim?.right};
+  `}
+
+  ${props => props.loader && css`
+      background-color: red;
+    `}
+
+ 
+
+  @media only screen and (max-width: 500px) {
+    ${({ dim }) => `
+    top: ${dim?.top};
+    left: calc(${dim?.left} * 2.15);
+    bottom: ${dim?.bottom};
+    right: ${dim?.right};
+  `}
+  }
+
+   ${props => props.isAnalyzing && css`
+        animation: ${fadeIn} 0s ease forwards;
+        animation-delay: 1s; /* 1-second delay */
+    `};
 `;

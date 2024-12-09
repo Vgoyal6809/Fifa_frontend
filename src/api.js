@@ -130,3 +130,33 @@ export async function StrikerApi({ setIsFetching, setTopPlayersData, setIsFailed
 
 };
 
+export async function uploadVideoApi({ file, setIsUploading, setUploadStatus, setIsFailed }) {
+    setIsUploading(true);
+    setUploadStatus('');
+  
+    const formData = new FormData();
+    formData.append('video', file); // Append the selected video file
+  
+    try {
+      const response = await fetch(`${BASE_URI}/upload`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  
+      const result = await response.json();
+      console.log(result);
+      if (response.status === 200) {
+        setUploadStatus('Video uploaded successfully!');
+      } else {
+        setUploadStatus('Upload failed.');
+      }
+    } catch (error) {
+      setUploadStatus('Error uploading the video.');
+      setIsFailed(true);
+    } finally {
+      setIsUploading(false);
+    }
+  }
