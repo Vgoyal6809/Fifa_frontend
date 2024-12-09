@@ -127,6 +127,10 @@ const Prediction = ({ isMobile }) => {
     if (!isFetching && topPlayersData) { setTilt(true); setShowAvatars(true); }
     console.log(isFetching)
   }, [isFetching]);
+  
+  useEffect(()=>{
+    console.log(selectedPlayer)
+  },[selectedPlayer])
 
   return (
     <FieldOuterContainer>
@@ -181,11 +185,11 @@ const Prediction = ({ isMobile }) => {
         }
 
         {tilt && selectedPlayer && (
-          <PlayerDetails onClick={() => Navigate('/details')}>
+          <PlayerDetails onClick={() => Navigate('/details', { state: { data:selectedPlayer, position:selectedPosition } })}>
             <img src={Playerimg} />
             <Details>
               <h3>{selectedPlayer?.Name}</h3>
-              <p>Age - 24  &nbsp;&nbsp;&nbsp;&nbsp; Height - 5'10"</p>
+              <p>Age - {selectedPlayer?.Age}  &nbsp;&nbsp;&nbsp;&nbsp; Height - {selectedPlayer?.Height} cm</p>
               <table>
                 <tr>
                   <th className='title'></th>
@@ -194,13 +198,13 @@ const Prediction = ({ isMobile }) => {
                 </tr>
                 <tr>
                   <td className='title'>Potential</td>
-                  <td className='value'>89.08</td>
-                  <td className='value'>92.91</td>
+                  <td className='value'>{selectedPlayer?.Potential}%</td>
+                  <td className='value'>{Math.round(selectedPlayer?.PredictedPotential)}%</td>
                 </tr>
                 <tr>
                   <td className='title'>Wage</td>
-                  <td className='value'>$1.1M</td>
-                  <td className='value'>$1.25M</td>
+                  <td className='value'>€ {selectedPlayer?.Wage}</td>
+                  <td className='value'>€ {Math.round(selectedPlayer?.PredictedWage)}</td>
                 </tr>
               </table>
             </Details>
