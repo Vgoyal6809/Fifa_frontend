@@ -1,5 +1,5 @@
-// const BASE_URI = "https://fifa-1rg5.onrender.com";
-const BASE_URI = "http://127.0.0.1:5000";
+const BASE_URI = "https://fifa-1rg5.onrender.com";
+// const BASE_URI = "http://127.0.0.1:5000";
 
 export async function RightForwardApi({ setIsFetching, setTopPlayersData, setIsFailed }) {
     setIsFetching(true)
